@@ -38,7 +38,7 @@ services:
         labels:            
             - 'docker-volume-backup.stop-during-backup=true'
         command: >
-            bash -c "if [ -z \"$(php -m | egrep 'phalcon|psr')\" ]; then chmod +x /srv/build/install && cd /srv/build/ && ./install && echo 'extension=phalcon.so' > ${PHP_INI_DIR_PREFIX}/php/conf.d/phalcon.ini; 
+            bash -c "if [ -z \"$(php -m | grep 'phalcon')\" ] && [ -z \"$(php -m | grep 'psr')\" ]; then chmod +x /srv/build/install && cd /srv/build/ && ./install && echo 'extension=phalcon.so' > ${PHP_INI_DIR_PREFIX}/php/conf.d/phalcon.ini; 
             rm -fr php-psr > /dev/null 2>&1 && git clone https://github.com/jbboehr/php-psr.git && cd php-psr && /usr/local/bin/phpize && ./configure && make && make test && sudo make install && echo 'extension=psr.so' > ${PHP_INI_DIR_PREFIX}/php/conf.d/psr.ini; fi; 
             grep -qe 'date.timezone = ${LOCAL_TIMEZONE}' ${PHP_INI_DIR_PREFIX}/php/conf.d/security.ini || echo 'date.timezone = ${LOCAL_TIMEZONE}' >> ${PHP_INI_DIR_PREFIX}/php/conf.d/security.ini; php-fpm"
 
