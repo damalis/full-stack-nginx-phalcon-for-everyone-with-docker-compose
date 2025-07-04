@@ -19,8 +19,8 @@ server {
 }
 
 server {
-	#listen 443 ssl http2;
-	#listen [::]:443 ipv6only=on ssl http2;
+	#listen 443 ssl;
+	#listen [::]:443 ipv6only=on ssl;
 	#
 	server_name ${NGINX_HOST} www.${NGINX_HOST};
 	#
@@ -28,7 +28,7 @@ server {
 	#ssl_certificate_key /etc/letsencrypt/live/${NGINX_HOST}/privkey.pem;
 	#ssl_trusted_certificate /etc/letsencrypt/live/${NGINX_HOST}/chain.pem;
 	#ssl_dhparam /etc/letsencrypt/ssl-dhparam.pem;
-	include /etc/letsencrypt/options-ssl-nginx.conf;		
+	include /etc/letsencrypt/options-ssl-nginx.conf;
 	
 	root /var/www/html;
 	index index.php;
@@ -62,5 +62,5 @@ server {
 	}
 	#
 	access_log off;
-	error_log  /var/log/nginx/${NGINX_HOST}.error.log error;
+	error_log  /var/log/nginx/${NGINX_HOST}-443.error.log error;
 }
